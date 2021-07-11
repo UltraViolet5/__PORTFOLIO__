@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using System.Collections
+@using Codecool.CodecoolShop.Controllers
+@using Codecool.CodecoolShop.Services
+
+@model List<Codecool.CodecoolShop.Models.Product>
+
+<div class="container">
+
+    <form asp-controller="Product" asp-action="Index" method="get">
+        <select id="category" name="category">
+            @foreach (var category in (List<ProductCategory>)ViewData["ListCategory"])
+            {
+                <option id="option" value="@category.Id"> @category.Department </option>
+            }
+        </select>
+        <button type="submit">Check</button>
+    </form>
+    <form asp-controller="Product" asp-action="Index" method="get">
+        <select id="supplier" name="supplier">
+            @foreach (var supplier in (List<Supplier>)ViewData["listOfSuppliers"])
+            {
+                <option id="SupplierOption" value="@supplier.Id"> @supplier.Name </option>
+            }
+        </select>
+        <button type="submit">Check</button>
+    </form>
+
+
+    @foreach (var element in Model)
+    {
+        <div class="col-lg-3 col-lg-3" style="display: inline-block; max-width: 350px; height: 350px">
+            <div class="card">
+                <img src="img/@(element.Name).jpg" style="height: 50%; width: 50%; align-self: center; padding-top: 10px">
+
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        Product
+                        @{ var num = Model.IndexOf(element) + 1; }
+                        @num
+                    </h5>
+                    <h5 class="card-title">@element.Name</h5>
+                    <p class="card-text">@element.Description.</p>
+                    <p class="card-text">Category: @element.ProductCategory.Department</p>
+                    <p class="card-text">Supplier: @element.Supplier.Name</p>
+                    <p class="card-text text-center">
+                        <strong>Price: @element.DefaultPrice.ToString("C2")</strong>
+                    </p>
+                    <a type="button" class="btn btn-primary"  asp-controller="product" asp-action="buy" asp-route-id="@element.Id">Add To Cart</a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

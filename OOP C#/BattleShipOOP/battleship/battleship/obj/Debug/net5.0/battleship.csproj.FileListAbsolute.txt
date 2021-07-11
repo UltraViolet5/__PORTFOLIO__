@@ -1,0 +1,32 @@
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.exe
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.deps.json
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.runtimeconfig.json
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.runtimeconfig.dev.json
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.dll
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\ref\battleship.dll
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.pdb
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.csprojAssemblyReference.cache
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.AssemblyInfoInputs.cache
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.AssemblyInfo.cs
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.csproj.CoreCompileInputs.cache
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.dll
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\ref\battleship.dll
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.pdb
+C:\Users\queiker\source\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.genruntimeconfig.cache
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.exe
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.deps.json
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.runtimeconfig.json
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.runtimeconfig.dev.json
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.dll
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\ref\battleship.dll
+E:\op c#\BattleShipOOP\battleship\battleship\bin\Debug\net5.0\battleship.pdb
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.csprojAssemblyReference.cache
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.GeneratedMSBuildEditorConfig.editorconfig
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.AssemblyInfoInputs.cache
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.AssemblyInfo.cs
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.csproj.CoreCompileInputs.cache
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.dll
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\ref\battleship.dll
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.pdb
+E:\op c#\BattleShipOOP\battleship\battleship\obj\Debug\net5.0\battleship.genruntimeconfig.cache

@@ -1,0 +1,4 @@
+
+*.dll
+battleship/battleship/bin/Debug/net5.0/battleship.dll
+*.cache

@@ -1,0 +1,79 @@
+<div class="toast fade show my-3 d-flex flex-wrap bd-highlight" role="dialog"
+     aria-live="assertive" aria-atomic="true" style="width: 100%;">
+
+    {# HEADER ----------------------------------------------------------------------------------------------------#}
+    <div class="toast-header bd-highlight w-100 h-auto">
+        <svg class="bd-placeholder-img me-2" width="20" height="20"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+             focusable="false" style="border-radius: 10px">
+            <rect width="100%" height="100%" fill="#555"></rect>
+        </svg>
+        <strong class="me-auto">{{ get_user(answer.owner_id, 'users').nick }}</strong>
+        <small class="text-muted mx-2">{{ answer.submission_time }}</small>
+    </div>
+
+    {# ADDITIONAL OPTIONS ----------------------------------------------------------------  #}
+    {% if session['logged'] == True
+    and (session['user_id'] == answer.owner_id
+    or session['access'] == 'moderator'
+    or session['access'] == 'admin') %}
+        <div class="toast-header bd-highlight w-100 h-auto bg-transparent">
+            <a href="{{ url_for('edit_answer_form', question_id=question.id, answer_id=answer.id) }}"
+               class="nav-link py-0 text-dark">Edit</a>
+            <a href="{{ url_for('delete_answer', question_id=question.id, answer_id=answer.id) }}"
+               class="nav-link py-0 text-dark">Delete</a>
+            {% if (session['user_id'] == question.owner_id or session['access'] == 'moderator' or
+                        session['access'] == 'admin') and not answer.accepted %}
+                <a class="nav-link py-0 text-dark"
+                   href="{{ url_for('accept_answer', answer_id=answer.id, question_id=question.id) }}"
+                   style="color: white">Accept</a>
+            {% elif (session['user_id'] == question.owner_id or session['access'] == 'moderator' or
+                        session['access'] == 'admin') and answer.accepted %}
+                <a class="nav-link py-0 text-dark"
+                   href="{{ url_for('unaccept_answer', answer_id=answer.id, question_id=question.id) }}"
+                   style="color: white">Unaccept</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# BODY -----------------------------------------------------------------------------------------------------#}
+    <div class="toast-body w-100">
+        <div class="row">
+            <p class="text-dark">{{ answer.message }}</p>
+        </div>
+        {% if answer.image != None %}
+            <div class="row text-center">
+                <a href="{{ url_for('static', filename = 'images/' + answer.image) }}">
+                    <img class="rounded"
+                         src="{{ url_for('static',filename = 'images/' + answer.image) }} " alt=""
+                         style="max-height: 300px; max-width: 100%">
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {# FOOTER ---------------------------------------------------------------------------------------------------#}
+    <div class="mt-auto start-50 align-self-end w-100">
+        <hr style="margin: 0; color: rgba(0,0,0,0.3)">
+        <p class="text-center">
+            {{ answer.vote_number }}
+            {% if is_answer_liked_by_user(answer.id, get_user(question.owner_id, 'users').id) %}
+                <a href="{{ url_for('dislike_answer',
+                answer_id=answer.id, question_id=question.id,
+                user_id=get_user(question.owner_id, 'users').id) }}">
+                    <img src="/static/style/constant_images/heart-fill.svg" alt="Likes">
+                </a>
+            {% else %}
+                <a href="{{ url_for('like_answer', answer_id=answer.id,
+                    question_id=question.id,
+                    user_id=get_user(question.owner_id, 'users').id) }}">
+                    <img src="/static/style/constant_images/heart.svg" alt="Likes">
+                </a>
+            {% endif %}
+            {% if answer.accepted %}
+                | <img src="/static/style/constant_images/check-circle.svg" alt="Accepted">
+            {% endif %}
+        </p>
+    </div>
+
+</div>

@@ -1,0 +1,127 @@
+{# LOGIN------------------------------------------------------------------------------------ #}
+<div class="row mb-5">
+    <div class="col text-end">
+        {% if session['logged'] == True %}
+            <div>
+                Logged as {{ session['user_nick'] }}
+                <a class="btn btn-outline-success btn-sm" href="{{ url_for('user', user_id=session['user_id']) }}">
+                    Profile</a>
+                <a class="btn btn-outline-success btn-sm" href="{{ url_for('logout') }}"> Log out</a>
+            </div>
+        {% else %}
+            <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Log in
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-end">
+                <form action="{{ url_for('login') }}" method="post" class="px-4 py-3">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               placeholder="email@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Password">
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                            <label class="form-check-label" for="dropdownCheck">
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Sign in</button>
+                </form>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                        data-bs-target="#registrationModal">
+                    New around here? Sign up
+                </button>
+                <a class="dropdown-item" href="#">Forgot password?</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{# END LOGIN---------------------------------------------------------------------------------#}
+
+{# NAV BAR ----------------------------------------------------------------------------------#}
+<hr class="m-0">
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}"><b>Mr. Rabbit</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {# HOME ----------------------------------------------------------- #}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                </li>
+                {# All questions ----------------------------------------------------------- #}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("list_questions", page=0) }}">All questions</a>
+                </li>
+                {#  TAGS --------------------------------------------------------- #}
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle bg-transparent border-0" type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Tags
+                    </button>
+                    <div class="dropdown-menu">
+                        {% for tag in get_all_tags() %}
+                            <div class="col">
+                                <div class="btn-group w-100">
+
+                                    <a href="{{ url_for('list_questions_by_tag', tag_id=tag.id) }}"
+                                       class="dropdown-item me-auto">
+                                        <span class="badge rounded-pill bg-transparent text-dark border border-dark border-1">
+                                            {{ tag.count }}</span>
+                                        {{ tag.name }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </li>
+
+                {#  USERS --------------------------------------------------------- #}
+                {% if session['logged'] == True %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users') }}" tabindex="-1" aria-disabled="true">Users</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Users</a>
+                    </li>
+                {% endif %}
+
+                {#  CONTACT --------------------------------------------------------- #}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Contact</a>
+                </li>
+
+                {#  ABOUT --------------------------------------------------------- #}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">About</a>
+                </li>
+            </ul>
+
+            {#  SEARCH FORM --------------------------------------------------------- #}
+            <form class="d-flex" method="post" action="{{ url_for('search') }}" enctype=multipart/form-data>
+                <input class="form-control me-2" type="text" placeholder="Search" name="search_phrase"
+                       aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+<hr class="m-0">
+{# END NAV BAR ------------------------------------------------------------------------------------------------------#}

@@ -1,0 +1,5 @@
+.idea
+venv
+testing.py
+/sample_data/test.csv
+*.pyc

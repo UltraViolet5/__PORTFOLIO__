@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <h3 class="text-center mt-4">All users - count: {{ users|length }}</h3>
+    <div class="toast-container row justify-content-around mx-0">
+        {% for user in users %}
+            {% include 'user_toast.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

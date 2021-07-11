@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% set linked = False %}
+{% set question_toast_width_100 = True %}
+
+{% block page_title %}
+    Question
+{% endblock %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="row mt-4">
+        {#    QUESTION -------------------------------------------------#}
+        <div class="col-12 col-lg-8">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Question:</h3>
+                </div>
+                <div class="col-6">
+                    <a class="btn btn-outline-success float-end me-3"
+                       href="{{ url_for('add_answer_form', question_id=question.id) }}">
+                        Add answer</a>
+                </div>
+            </div>
+            <div class="row mx-2">
+                {% include 'question_toast.html' %}
+            </div>
+        </div>
+        {# ANSWERS ------------------------------------------------------#}
+        <div class="col-12 col-lg-4">
+            {% if answers|length != 0 %}
+                <div class="row mx-3">
+                    <h4>Top answer:</h4>
+                </div>
+                <div class="row mx-3">
+                    {% set answer = get_top_rated_answer(question.id) %}
+                    {% include 'answer_toast.html' %}
+                </div>
+            {% endif %}
+            <div class="row mx-3">
+                {% if answers|length == 0 %}
+                    <h4>Answers: (NO ANSWERS)</h4>
+                {% else %}
+                    <h4>Answers:</h4>
+                {% endif %}
+            </div>
+            <div class="row mx-3">
+                {% for answer in answers %}
+                    {% include 'answer_toast.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {#    NOT IMPLEMENTED ! #}
+    {#        COMMENT ------------------------------------------------------#}
+    {#                {% if get_comments(answer.id)|length > 0 %}#}
+    {#                    <h3 id="comment">Comments:</h3>#}
+    {#                {% endif %}#}
+    {#                {% for comment in get_comments(answer.id) %}#}
+    {#                    <div class="comment">#}
+    {#                        <p>{{ comment.message }} {{ comment.image }}</p>#}
+    {#                        <p>#}
+    {#                            {{ comment.submission_time }} :: Edited: {{ comment.edited_count }}#}
+    {#                        </p>#}
+    {#                        <div class="button_box">#}
+    {#                            <a href="{{ url_for('delete_comment', comment_id=comment.id, question_id=question.id) }}"#}
+    {#                               class="button">Delete</a>#}
+    {#                            <a href="{{ url_for('edit_comment_form', comment_id=comment.id, question_id=question.id,#}
+    {#                                                                answer_id=answer.id) }}" class="button">#}
+    {#                                Edit</a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {#    END COMMENT ------------------------------------------------------#}
+{% endblock %}

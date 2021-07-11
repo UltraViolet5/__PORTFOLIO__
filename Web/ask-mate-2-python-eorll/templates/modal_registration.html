@@ -1,0 +1,46 @@
+{# MODAL REGISTRATION --------------------------------------------------------------------------------------#}
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="{{ url_for('register') }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="nick" class="form-label">Nick</label>
+                    <input class="form-control me-2" type="text" placeholder="Nick" name="nick" id="nick"
+                           required>
+                    <br>
+                    <label for="email" class="form-label">Email</label>
+                    <input class="form-control me-2" type="email" placeholder="Email@email.com" name="email"
+                           id="email"
+                           title="Insert your email" required>
+                    <br>
+                    <label for="birthday" class="form-label">Birthday</label>
+                    <input class="form-control me-2" type="date" name="birthday" id="birthday"
+                           title="Insert your birthday date" required>
+                    <br>
+                    <input type="hidden" value="user" name="access_level">
+                    <label for="password" class="form-label">Password</label>
+                    <input class="form-control me-2" type="password" name="password" id="password" autofocus
+                           required>
+                    <br>
+                    <label for="repeat_password" class="form-label">Repeat password</label>
+                    <input class="form-control me-2" type="password" name="repeat_password" id="password"
+                           title="Repeat password" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                    </button>
+                    <button type="submit" class="btn btn-success">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show" id="backdrop" style="display: none;"></div>
+</div>
+{# END MODAL REGISTRATION ---------------------------------------------------------------------------------#}

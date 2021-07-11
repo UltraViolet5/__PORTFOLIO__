@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}
+    {% if mode == 'add' %}
+        Add new question
+    {% elif mode == 'edit' %}
+        Edit question
+    {% else %}
+        {#        TODO Raise error if mode is wrong #}
+    {% endif %}
+{% endblock %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="toast fade show my-3 bd-highlight position-relative px-3" style="width: 100%">
+        <h4 class="toast-header text-dark">{{ self.page_title() }}</h4>
+        <div class="card-body">
+            {% if mode == 'add' %}
+                <form method="post" action="{{ url_for('add_question') }}" enctype=multipart/form-data>
+            {% elif mode == 'edit' %}
+                <form method="post" action="{{ url_for('edit_question', question_id=question.id) }}"
+                      enctype=multipart/form-data>
+            {% else %}
+                {#        TODO Raise error if mode is wrong #}>
+            {% endif %}
+
+            <label class="form-label" for="title">Title</label>
+            <br>
+            <input class="form-control" type="text"
+                    {% if mode == 'edit' %} value="{{ question['title'] }}" {% endif %}
+                   placeholder="Some title"
+                   name="title" id="title" required>
+            <br>
+            <label class="form-label" for="message">Message</label>
+            <br>
+            {% if mode == 'edit' %}
+                <textarea name="message" id="message" class="form-control"
+                          placeholder="Some content" required>{{ question['message'] }}</textarea>
+            {% else %}
+                <textarea name="message" id="message" class="form-control"
+                          placeholder="Some content" required></textarea>
+            {% endif %}
+            <br>
+            <hr class="m-0 mb-3">
+            <h5 class="form-label">Image</h5>
+            {% if mode == 'edit' %}
+                <label class="form-label" for="same_image">Same image</label>
+                <input class="form-check d-inline" type="radio" id="same_image" name="image_option" value="same"
+                       checked>
+                <br>
+                <label class="form-label" for="change_image">Change image</label>
+                <input class="form-check d-inline" type="radio" id="change_image" name="image_option" value="change">
+                <br>
+                <label class="form-label" for="remove_image">Remove image</label>
+                <input class="form-check d-inline" type="radio" id="remove_image" name="image_option" value="remove">
+            {% endif %}
+
+            <br>
+            <input class="form-control" type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg">
+            <br>
+            <hr class="m-0">
+
+            {% if mode == 'add' %}
+                <input type="submit" class="btn btn-outline-success mt-4" value="Add new question">
+            {% elif mode == 'edit' %}
+                <input type="submit" class="btn btn-outline-success mt-4" value="Edit question">
+            {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

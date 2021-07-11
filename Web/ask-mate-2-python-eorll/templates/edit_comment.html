@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} Edit comment for answer {% endblock %}
+
+{% block menu %} {% include 'main_menu.html' %} {% endblock %}
+
+{% block content %}
+    <h3>Answer:</h3>
+    <div class="questions">
+        <p>{{ answer.message }}</p>
+        <p>
+            {{ answer.submission_time }} :: Liked: {{ answer.vote_number }}
+        </p>
+    </div>
+    <h3 id="answer">Comment:</h3>
+    <div class="answer">
+        <form method="post" action="{{ url_for('edit_comment') }}"
+              enctype=multipart/form-data>
+            <label for="message">Message: </label><br>
+            <textarea class="input" name="message" id="message" cols="40" rows="10" required>{{ comment_msg }}
+            </textarea><br>
+            <input type="hidden" name="question_id" value={{ question_id }}>
+            <input type="hidden" name="answer_id" value={{ answer_id }}>
+            <input type="hidden" name="comment_id" value={{ comment_id }}>
+            <input type="submit" class="button" value="Edit">
+        </form>
+    </div>
+{% endblock %}

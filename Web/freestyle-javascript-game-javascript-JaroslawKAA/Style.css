@@ -1,0 +1,299 @@
+
+body {
+    background: url('img/tlo.png');
+    background-size: auto;
+    /*margin: 10%;*/
+    /*display: flex;*/
+    /*margin-left: 40%;*/
+    /*margin-right: 40%;*/
+    /*min-width: 600px;*/
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.gameRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    align-content: center;
+}
+
+.challenge {
+    width: 600px;
+    height: 160px;
+
+}
+
+.game_board {
+    /*display: block;*/
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    /*transform: rotate();*/
+}
+
+.game_board .gameRow .PipeStraight {
+    background-size: 100px;
+    padding-left: 0;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.game_board .gameRow .PipeStraight.up {
+    background: url("img/rura-prosta.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.left {
+    background: url("img/rura-prosta-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.down {
+    background: url("img/rura-prosta.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.right {
+    background: url("img/rura-prosta-l.png");
+    background-size: 100px;
+
+}
+
+.game_board .gameRow .PipeStraight.water.up {
+    background: url("img/rura-prosta-woda.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.water.down {
+    background: url("img/rura-prosta-woda.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.water.right {
+    background: url("img/rura-prosta-woda-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeStraight.water.left {
+    background: url("img/rura-prosta-woda-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded {
+    background-size: 100px;
+    padding-left: 0;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.game_board .gameRow .PipeFolded.up {
+    background: url("img/rura-skretna.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.left {
+    background: url("img/rura-skretna-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.down {
+    background: url("img/rura-skretna-d.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.right {
+    background: url("img/rura-skretna-r.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.water.up {
+    background: url("img/rura-skret-woda.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.water.left {
+    background: url("img/rura-skret-woda-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.water.down {
+    background: url("img/rura-skret-woda-d.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeFolded.water.right {
+    background: url("img/rura-skret-woda-r.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree {
+    background-size: 100px;
+    padding-left: 0;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.game_board .gameRow .PipeThree.up {
+    background: url("img/rura-3.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.left {
+    background: url("img/rura-3-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.down {
+    background: url("img/rura-3-d.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.right {
+    background: url("img/rura-3-r.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.water.up {
+    background: url("img/rura-3-WODA.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.water.left {
+    background: url("img/rura-3-WODA-l.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.water.down {
+    background: url("img/rura-3-WODA-d.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .PipeThree.water.right {
+    background: url("img/rura-3-WODA-r.png");
+    background-size: 100px;
+}
+
+.game_board .gameRow .empty {
+    background: url("img/rura-pusty.png");
+    background-size: 100px;
+    padding-left: 0;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.button_reset {
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    background-color: lightslategrey;
+    border: none;
+    color: white;
+    /*padding: 15px 32px;*/
+    width: 600px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    alignment: center;
+    display: block;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button_reset:hover {
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    background-color: cadetblue;
+    border: none;
+    color: white;
+    /*padding: 15px 32px;*/
+    width: 600px;
+    height: 32px;
+    text-align: center;
+    text-decoration: none;
+    alignment: center;
+    /*display: inline-block;*/
+    font-size: 20px;
+
+}
+
+.game_board input {
+    width: 50px;
+    alignment: center;
+}
+
+.game_board .gameRow .PipeStraightEnd {
+    background: url("img/rura-prosta-300x300_złoty.png");
+    background-size: 100px;
+    padding-left: 0;
+    float: left;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.game_board .gameRow .PipeStraightEnd.water {
+    background: url("img/rura-prosta-woda.png");
+    background-size: 100px;
+    padding-left: 0;
+    float: left;
+    width: 100px;
+    height: 100px;
+    border: hidden;
+    box-sizing: border-box;
+}
+
+.draggedElement {
+    opacity: .6;
+}
+
+.ifOverElement {
+    transform: scale(0.9, 0.9);
+}
+
+.stopwatch {
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    text-align: center;
+}
+
+.header {
+    align-content: center;
+    height: 300px;
+}
+
+.Score_Board {
+    margin: auto;
+    width: 200px;
+    text-align: center;
+
+}
+
+.Score_Board_body {
+    margin: auto;
+    width: 200px;
+}
+
+.Score {
+    margin: auto;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+    color: royalblue;
+    font-size: 20px;
+    text-align: center;
+    width: 200px
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+}

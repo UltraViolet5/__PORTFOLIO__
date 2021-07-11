@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.Energy2000.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\op c#\Energy2000\Energy2000\Energy2000\.idea\.idea.Energy2000.dir\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

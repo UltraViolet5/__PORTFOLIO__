@@ -1,0 +1,114 @@
+{% if question_toast_width_100 == True %}
+    <div class="toast fade show my-3 bd-highlight position-relative" role="dialog"
+         aria-live="assertive" aria-atomic="true" style="width: 100%">
+{% else %}
+    <div class="toast fade show my-3 bd-highlight position-relative" role="dialog"
+         aria-live="assertive" aria-atomic="true">
+{% endif %}
+{# HEADER -------------------------------------------------------------------------------------------------------#}
+<div class="toast-header bd-highlight w-100">
+
+    {#    Right content -------------------------------------------#}
+    <svg class="bd-placeholder-img me-2" width="20" height="20"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+         focusable="false" style="border-radius: 10px">
+        <rect width="100%" height="100%" fill="#000"></rect>
+    </svg>
+    <strong class=" me-auto">{{ get_user(question.owner_id, 'users').nick }}</strong>
+
+    {#    Left content ---------------------------------------------#}
+    <small class="text-muted mx-2">{{ question.submission_time }}</small>
+
+</div>
+
+{# ADDITIONAL OPTIONS ----------------------------------------------------------------  #}
+{% if session['logged'] == True
+    and (session['user_id'] == question.owner_id
+    or session['access'] == 'moderator'
+    or session['access'] == 'admin') %}
+    <div class="toast-header bd-highlight w-100 bg-transparent">
+        <a href="{{ url_for('edit_question_form', question_id=question.id) }}"
+           class="nav-link py-0 text-dark">Edit</a>
+        <a href="{{ url_for('delete_question', question_id=question.id) }}"
+           class="nav-link py-0 text-dark">Delete</a>
+        <a href="{{ url_for('tag_form', question_id=question.id) }}" class="nav-link py-0 text-dark">
+            Tags</a>
+        {% if not question.accepted and
+                    (session['access'] == 'moderator' or session['access'] == 'admin') %}
+            <a class="nav-link py-0 text-dark"
+               href="{{ url_for('accept_question', question_id=question.id) }}"
+               style="color: white">Accept</a>
+        {% elif question.accepted and
+                    (session['access'] == 'moderator' or session['access'] == 'admin') %}
+            <a class="nav-link py-0 text-dark"
+               href="{{ url_for('unaccept_question', question_id=question.id) }}"
+               style="color: white">Unaccept</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{# BODY ------------------------------------------------------------------------------------------------#}
+<div class="toast-body w-100 mb-5">
+    <div class="row position-relative">
+        {% if question.image != None and question_toast_width_100 %}
+            <div class="col-6">
+                {% if linked == True %}
+                    <a href="{{ url_for('display_question', question_id=question.id) }}"
+                       class="link text-decoration-none"> {% endif %}
+                <h4 class="text-dark">{{ question.title }}</h4>
+                <p class="text-dark">{{ question.message }}</p>
+                {% if linked == True %}</a>{% endif %}
+            </div>
+            <div class="col-6 text-center">
+                <a href="{{ url_for('static',filename = 'images/' + question.image ) }}">
+                    <img class="rounded"
+                         src="{{ url_for('static',filename = 'images/' + question.image) }} " alt=""
+                         style="max-height: 300px">
+                </a>
+            </div>
+
+        {% else %}
+            {% if linked == True %}<a href="{{ url_for('display_question', question_id=question.id) }}"
+                                      class="link text-decoration-none">{% endif %}
+        <h4 class="text-dark">{{ question.title }}</h4>
+        <p class="text-dark">{{ question.message }}</p>
+        {% if linked == True %}</a>{% endif %}
+        {% endif %}
+    </div>
+
+    {% set tags = get_tags(question.id) %}
+    {% include 'tags_prefab.html' %}
+
+</div>
+
+{# FOOTER --------------------------------------------------------------------------------------------#}
+<div class="w-100 position-absolute bottom-0 pe-4">
+    <hr style="margin: 0; color: rgba(0,0,0,0.3)">
+    <p class="text-center position-relative">
+        {{ question.view_number }}
+        <img src="/static/style/constant_images/eye.svg" alt="Viewed">
+        | {{ question.vote_number }}
+        {% if is_question_liked_by_user(question.id, get_user(question.owner_id, 'users').id) %}
+            <a href="{{ url_for('dislike_question',
+                question_id=question.id,
+                user_id=get_user(question.owner_id, 'users').id) }}">
+                <img src="/static/style/constant_images/heart-fill.svg" alt="Likes">
+            </a>
+        {% else %}
+            <a href="{{ url_for('like_question',
+                question_id=question.id,
+                user_id=get_user(question.owner_id, 'users').id) }}">
+                <img src="/static/style/constant_images/heart.svg" alt="Likes">
+            </a>
+        {% endif %}
+        | {{ get_count_of_answers(question.id) }}
+        <img src="/static/style/constant_images/chat-left.svg" alt="Answers">
+        {% if question.accepted %}
+            | <img src="/static/style/constant_images/check-circle.svg" alt="Accepted">
+        {% endif %}
+        {% if question.image != None %}
+            | <img src="/static/style/constant_images/card-image.svg" alt="Attached image">
+        {% endif %}
+    </p>
+</div>
+</div>

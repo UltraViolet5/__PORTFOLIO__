@@ -1,0 +1,27 @@
+{% set questions_count = get_count_of_table('question') %}
+{% set pages_amount = int(round_up(questions_count['count'] / 6)) %}
+
+<div class="row mt-3">
+    <nav aria-label="...">
+        <ul class="pagination pagination-sm justify-content-center">
+            {% for n in range(pages_amount) %}
+                {% if n == current_page %}
+                    <li class="page-item active" aria-current="page"
+                        style="box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+                        <span class="page-link border-dark bg-dark"
+                              style="box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">{{ n }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link text-dark" style="background-color: rgba(255, 255, 255, 0.85);
+                           border: 1px solid rgba(0, 0, 0, 0.1);
+                           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);"
+                           href="{{ url_for('list_questions', page=n, key=key, order=order) }}">
+                            {{ n }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+</div>

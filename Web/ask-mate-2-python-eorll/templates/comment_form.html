@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} Add comment {% endblock %}
+
+{% block menu %} {% include 'main_menu.html' %} {% endblock %}
+
+{% block content %}
+    <h2>{{ self.page_title() }}</h2>
+    <div class="questions">
+        <p>{{ answer.message }}</p>
+        <p>
+            {{ answer.submission_time }} :: Liked: {{ answer.vote_number }}
+        </p>
+    </div>
+    <h3 id="answer">Comment: </h3>
+    <div class="answer">
+        <form method="post" action="{{ url_for('add_comment') }}"
+              enctype=multipart/form-data>
+            <label for="message">Message: </label><br>
+            <textarea class="input" name="message" id="message" cols="40" rows="10" required></textarea><br>
+            <input type="hidden" name="question_id" value={{ question_id }}>
+            <input type="hidden" name="answer_id" value={{ answer_id }}>
+            <input type="submit" class="button" value="Comment">
+        </form>
+    </div>
+{% endblock %}

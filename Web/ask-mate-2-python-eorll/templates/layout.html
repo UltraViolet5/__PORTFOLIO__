@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block page_title %}Main page{% endblock %} - Mr. Rabbit</title>
+    <link rel="shortcut icon" href="/static/style/constant_images/favicon.svg">
+    <link href="/static/bootstrap-5.0.0-beta1-dist/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js"></script>
+    <style>
+
+        body {
+            margin: 5px 30px 30px;
+            background-color: #ffeb00;
+            background-image: url("/static/images/rabbit.png");
+            background-repeat: no-repeat;
+            background-position: right bottom -30%;
+            background-size: 20%;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 96vh;
+            top: 0;
+            bottom: 2.5rem;
+        }
+
+        @media screen and (max-width: 960px) {
+            .toast {
+                width: 100%;
+            }
+
+            .nav-item {
+                text-align: right;
+            }
+
+            .nav-link {
+                float: right;
+            }
+
+            .dropdown-menu {
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body class="position-relative">
+<div class="container justify-content-center position-relative" style="padding-bottom: 2.5rem; min-height: 96vh">
+
+    {% block menu %}{% endblock %}
+
+    {% include 'modal_registration.html' %}
+    {% block content %}{% endblock %}
+    {% include 'footer.html' %}
+</div>
+
+</body>
+
+</html>
+
+
+

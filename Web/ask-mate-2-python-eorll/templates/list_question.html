@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% set linked = True %}
+
+
+{% block page_title %}
+    List questions
+{% endblock %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="row mt-4 pe-1 mx-5">
+        <div class="col-6">
+            <p class="">Sort by:
+                {% if order == "asc" %}
+                    <a href="{{ url_for('list_questions',key='submission_time', order='desc', page=current_page) }}"
+                       class="text-decoration-none text-dark">Time</a>
+                    {% if key == 'submission_time' %}
+                        <img src="/static/style/constant_images/arrow-up-short.svg">
+                    {% endif %}
+                    |
+                    <a href="{{ url_for('list_questions',key='view_number', order='desc', page=current_page) }}"
+                       class="text-decoration-none text-dark">Viewed</a>
+                    {% if key == 'view_number' %}
+                        <img src="/static/style/constant_images/arrow-up-short.svg">
+                    {% endif %}
+                    |
+                    <a href="{{ url_for('list_questions',key='vote_number', order='desc', page=current_page) }}"
+                       class="text-decoration-none text-dark">Liked</a>
+                    {% if key == 'vote_number' %}
+                        <img src="/static/style/constant_images/arrow-up-short.svg">
+                    {% endif %}
+                {% elif order == "desc" %}
+                    <a href="{{ url_for('list_questions',key='submission_time', order="asc", page=current_page) }}"
+                       class="text-decoration-none text-dark">Time</a>
+                    {% if key == 'submission_time' %}
+                        <img src="/static/style/constant_images/arrow-down-short.svg">
+                    {% endif %}
+                    |
+                    <a href="{{ url_for('list_questions',key='view_number', order="asc", page=current_page) }}"
+                       class="text-decoration-none text-dark">Viewed</a>
+                    {% if key == 'view_number' %}
+                        <img src="/static/style/constant_images/arrow-down-short.svg">
+                    {% endif %}
+                    |
+                    <a href="{{ url_for('list_questions',key='vote_number', order="asc", page=current_page) }}"
+                       class="text-decoration-none text-dark">Liked</a>
+                    {% if key == 'vote_number' %}
+                        <img src="/static/style/constant_images/arrow-down-short.svg">
+                    {% endif %}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-6 text-end p-0">
+            <a href="{{ url_for('add_question_form') }}" class="btn btn-outline-success" role="button">Add new
+                question</a>
+        </div>
+    </div>
+    {% include 'questions_prefab.html' %}
+    {% include 'pagination.html' %}
+
+{% endblock %}

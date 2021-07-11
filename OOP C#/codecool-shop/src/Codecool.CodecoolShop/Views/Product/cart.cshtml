@@ -1,0 +1,80 @@
+﻿@model List<LineItem>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+<h3>Cart Page</h3>
+<h4>Total quantity: @ViewBag.Quantity</h4>
+<form asp-controller="product" asp-action="quantity" method="post">
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            @*<th>Option</th>*@
+            <th>Id</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sub Total</th>
+        </tr>
+        @foreach (var item in ViewBag.cart)
+        {
+            
+            
+            <tr style="" name="@item.product.Name">
+                <td>@item.product.Id</td>
+                <td>@item.product.Name</td>
+                <td><img src="img/@(item.product.Name).jpg" style="height: 50%; width: 50%; align-self: center; padding-top: 10px">
+                <td id="prize" name="@item.product.Id">@item.product.DefaultPrice</td>
+
+                <td>
+                    <label for="inputq">Quantity:</label>
+                    <input id="@item.product.Id" name="q" type="text" value="@item.Quantity"/>
+                </td>
+                <td id="@item.product.Name" tag="@item.product.Id">
+                    <script>
+                        document.getElementById("@item.product.Id").addEventListener("change",
+                            (event) => {
+                                var quantity = document.getElementById("@item.product.Id").value;
+                                var prize = document.getElementsByName("@item.product.Id");
+                                console.log(quantity);
+                                console.log(prize[0].innerText);
+                                //var quantity = querySelector("#i").val();
+                                //var prize = querySelector("#prize").val();
+                                var intquant = parseInt(quantity);
+                                var intprize = parseInt(prize[0].innerText);
+                                var total = intprize * intquant;
+                                //var child = document.createElement('div');
+                                var stringtotal = total.toString();
+                                //child.innerHTML = stringtotal;
+                                var subtotal = document.getElementById("@item.product.Name").innerText = stringtotal;
+                                if (quantity === "0") {
+                                    document.getElementsByName("@item.product.Name")[0].style.display = "none";
+                                }
+                            })
+                    </script>
+                    @(item.product.DefaultPrice * item.Quantity)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="6">Sum</td>
+            <td>
+                @ViewBag.total
+            </td>
+        </tr>
+    </table>
+    <button type="submit">Checkout</button>
+    
+</form>
+<a asp-controller="product" asp-action="index">Continue Shopping</a>
+</body>
+</html>

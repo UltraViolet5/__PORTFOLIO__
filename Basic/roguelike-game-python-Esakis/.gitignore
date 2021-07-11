@@ -1,0 +1,7 @@
+__pycache__/
+classes/__pycache__/
+controller/__pycache__/
+model/__pycache__/
+model/items/__pycache__/
+model/levels/__pycache__/
+view/__pycache__/

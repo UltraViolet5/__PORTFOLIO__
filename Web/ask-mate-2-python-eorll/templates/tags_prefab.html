@@ -1,0 +1,16 @@
+<div class="btn-group">
+    {% for tag in tags %}
+        <div class="col">
+            <a href="{{ url_for('list_questions_by_tag', tag_id=tag.id) }}"
+               class="badge rounded-pill bg-secondary text-decoration-none m-1"
+               style="color: white">
+                {{ tag.name }}
+            </a>
+            {% if tag_editing %}
+                <a href="{{ url_for('delete_tag', tag_id=tag.id, question_id=question.id) }}"
+                   class="badge rounded-pill bg-secondary text-decoration-none m-1 position-absolute"
+                   style="color: white; transform: translate(-20px, -10px)">x</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

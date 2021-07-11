@@ -1,0 +1,61 @@
+<div class="toast fade show my-3 d-flex flex-wrap bd-highlight" role="dialog"
+     aria-live="assertive" aria-atomic="true" style="">
+    <div class="toast-header bd-highlight w-100 h-auto">
+        <svg class="bd-placeholder-img me-2" width="20" height="20"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+             focusable="false" style="border-radius: 10px">
+            <rect width="100%" height="100%" fill="#000"></rect>
+        </svg>
+
+        {% if session['access'] == 'admin' %}
+            <a href="{{ url_for('user', user_id=user.id) }}" class="text-decoration-none text-dark">
+        {% endif %}
+
+        <strong class="">{{ user.nick }}</strong>
+
+        {% if session['access'] == 'admin' %}
+            </a>
+        {% endif %}
+
+        <small class="text-muted me-auto mx-2">{{ user.email }}</small>
+        <small class="nav-link py-0 text-dark fst-italic">{{ user.access_level }}</small>
+    </div>
+
+    <div class="toast-body w-100">
+
+        <img src="/static/style/constant_images/file-person.svg" alt="User data"
+             style="height: 20px; transform: translate(0, -5px)" class="">
+        <h5 class="card-title d-inline">User data:</h5>
+        <p>
+            <strong>ID:</strong> {{ user.id }}<br>
+            <strong>Nick:</strong> {{ user.nick }}<br>
+            <strong>Email:</strong> {{ user.email }}<br>
+            <strong>Password:</strong> ********<br>
+            <strong>Birth date:</strong> {{ user.birth_date }}<br>
+            <strong>Join date:</strong> {{ user.join_date }}<br>
+            <strong>Access level:</strong> {{ user.access_level }}<br>
+        </p>
+        <hr class="my-2" style="color: rgba(0,0,0,0.3)">
+        <img src="/static/style/constant_images/file-earmark-bar-graph.svg" alt="Statistics"
+             style="height: 20px; transform: translate(0, -5px)">
+        <h5 class="card-text d-inline">Statistics:</h5>
+        <p>
+            <strong>Reputation:</strong> {{ user.reputation }}<br>
+            <strong>Questions:</strong> {{ get_record_count(user.id, 'question') }}<br>
+            <strong>Answers:</strong> {{ get_record_count(user.id, 'answer') }}<br>
+            <strong>Comments:</strong> {{ get_record_count(user.id, 'comment') }}<br>
+        </p>
+    </div>
+
+    {% if session['access'] == 'admin' %}
+        <div class="mt-auto start-50 align-self-end w-100">
+            <hr style="margin: 0; color: rgba(0,0,0,0.3)">
+            <p class="text-center">
+                <a class="nav-link p-0 text-dark" href="{{ url_for('user', user_id=user.id) }}">
+                    Show
+                </a>
+            </p>
+        </div>
+    {% endif %}
+
+</div>

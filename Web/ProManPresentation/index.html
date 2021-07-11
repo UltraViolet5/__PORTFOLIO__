@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <!--    <link rel="stylesheet" href="static/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="dist/glitches.css">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+            integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+            crossorigin="anonymous"></script>
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+</head>
+<body translate="no">
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <div class="glitch" data-text="ERROR 404">0111010</div>
+            <div class="glow">ERROR 404</div>
+            <p class="subtitle">Krzysiek. Dawid. Robert. Jarek.</p>
+        </section>
+        <section data-auto-animate>
+            <h5 style="opacity: 0">present</h5>
+        </section>
+        <section data-auto-animate>
+            <h5>present</h5>
+        </section>
+        <section data-auto-animate>
+            <div class="">
+                <img class="mb-3" src="./static/logo.svg"
+                     style="width: 30%; min-width: 150px">
+            </div>
+            <span class="fragment" style="font-size: x-large">Help yourself in development planing.</span>
+        </section>
+        <section>
+            <h6>Functionalities:</h6>
+            <ul>
+                <li class="fragment">
+                    Creating boards, task groups and tasks
+                </li>
+                <li class="fragment">
+                    Deleting boards, task groups and tasks
+                </li>
+                <li class="fragment">
+                    Collapsing boards
+                </li>
+                <li class="fragment">
+                    Changing the name of elements
+                </li>
+                <li class="fragment">
+                    Changing the position of elements
+                </li>
+                <li class="fragment">
+                    Login/logout
+                </li>
+                <li class="fragment">
+                    Data synchronisation (in-progress)
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h6>Mechanism's:</h6>
+            <ul>
+                <li class="fragment">
+                    Drag and drop
+                </li>
+                <li class="fragment">
+                    Sortable
+                </li>
+                <li class="fragment">
+                    Nodes manipulation
+                </li>
+                <li class="fragment">
+                    Private cards after login (in-progress)
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h6>We are proud of:</h6>
+            <ul>
+                <li class="fragment">
+                    Data Base
+                </li>
+                <li class="fragment">
+                    SCSS implementation
+                </li>
+                <li class="fragment">
+                    App structure
+                </li>
+                <li class="fragment">
+                    App design
+                </li>
+                <li class="fragment">
+                    Ajax query
+                </li>
+            </ul>
+        </section>
+        <section data-auto-animate>
+            <h6>Data base implementation</h6>
+            <pre data-id="code"><code class="hljs haskell has-highlights" data-trim data-line-numbers="1-6"
+                                      style="font-size: 20px">
+                    # main.py
+                    app = Flask(__name__)
+                    app.config.from_object(Config)
+                    db = SQLAlchemy(app)
+                    bcrypt = Bcrypt(app)
+                    login_manager = LoginManager(app)
+                </code></pre>
+        </section>
+        <section data-auto-animate>
+            <h6>Data base implementation</h6>
+            <pre data-id="code"><code class="hljs haskell has-highlights" data-trim
+                                      data-line-numbers="12-16|18-22|25-27|30-38|43-46"
+                                      style="font-size: 20px">
+                    # main.py
+                    app = Flask(__name__)
+                    app.config.from_object(Config)
+                    db = SQLAlchemy(app)
+                    bcrypt = Bcrypt(app)
+                    login_manager = LoginManager(app)
+
+                    # models.py
+                    from flask_login import UserMixin
+                    from main import db
+
+                    class User(db.Model, UserMixin):
+                        id = db.Column(db.Integer, primary_key=True)
+                        username = db.Column(db.String(30), unique=True, nullable=False)
+                        email = db.Column(db.String(120), unique=True, nullable=False)
+                        password = db.Column(db.String(60), nullable=False)
+
+                    class Boards(db.Model):
+                        id = db.Column(db.Integer, primary_key=True)
+                        title = db.Column(db.String(120), nullable=False)
+                        owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+                        owner = db.relationship('User', foreign_keys=[owner_id])
+
+
+                    class Statuses(db.Model):
+                        id = db.Column(db.Integer, primary_key=True)
+                        title = db.Column(db.String(120), unique=True, nullable=False)
+
+
+                    class Cards(db.Model):
+                        id = db.Column(db.Integer, primary_key=True)
+                        board_id = db.Column(db.Integer, db.ForeignKey('boards.id'), nullable=False)
+                        title = db.Column(db.String(120), nullable=False)
+                        status_id = db.Column(db.Integer, db.ForeignKey('statuses.id'), nullable=False)
+                        order = db.Column(db.Integer, nullable=False)
+
+                        board = db.relationship('Boards', foreign_keys=[board_id])
+                        status = db.relationship('Statuses', foreign_keys=[status_id])
+
+                    db.create_all()
+
+                    # data_handler.py
+                    def add_new_board(title):
+                        new_board = Boards(title=title, owner_id=1)
+                        db.session.add(new_board)
+                        db.session.commit()
+                </code></pre>
+        </section>
+        <section>
+            <h6>AJAX implementation</h6>
+            <pre data-id="code"><code class="hljs haskell has-highlights" data-trim style="font-size: 20px"
+                                      data-line-numbers>
+<!--                                      data-line-numbers="12-16|18-22|25-27|30-38|43-46"-->
+            </code></pre>
+        </section>
+        <section>
+            <h6>Used technologies:</h6>
+            <table>
+                <tbody>
+                <tr>
+                    <td><img src="static/js.png" style="width: 150px"></td>
+                    <td><img src="static/sass.png" style="width: 150px"></td>
+                    <td><img src="static/trello.png" style="width: 150px"></td>
+                    <td><img src="static/GitHub-logo.png" style="width: 150px; filter: invert()"></td>
+                    <td><img src="static/Git-logo.svg" style="width: 150px; filter: invert()"></td>
+                </tr>
+                <tr>
+                    <td><img src="static/HTML5_logo_and_wordmark.svg" style="width: 150px"></td>
+                    <td><img src="static/discord.png" style="width: 150px"></td>
+                    <td><img src="static/pycharm.png" style="width: 150px; filter: invert()"></td>
+                    <td><img src="static/python-logo.png" style="width: 150px"></td>
+                    <td><img src="static/bootstrap.png" style="width: 150px"></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h6>Challenges:</h6>
+            <ul>
+                <li class="fragment">
+                    Team work
+                </li>
+                <li class="fragment">
+                    Code conflicts
+                </li>
+                <li class="fragment">
+                    App architecture
+                </li>
+                <li class="fragment">
+                    Html initialization
+                </li>
+                <li class="fragment">
+                    New team member
+                </li>
+            </ul>
+        </section>
+        <section>
+            Live presentation...<br>
+            <a href="http://127.0.0.1:5000/">
+                <img src="static/play-fill.svg" style="width: 25%; filter: invert()">
+            </a>
+        </section>
+        <section>
+            <h6>Future:</h6>
+            <ul>
+                <li class="fragment">
+                    Manual synchronization
+                </li>
+                <li class="fragment">
+                    Live synchronization
+                </li>
+                <li class="fragment">
+                    Archive tasks
+                </li>
+                <li class="fragment">
+                    Offline access
+                </li>
+            </ul>
+        </section>
+        <section data-state="askSection" style="position: relative; height: 100%;">
+            <span style="position: absolute; top: 50%; transform: translate(-50%, -50%)">Let's ask us!</span>
+        </section>
+        <section>
+            <h5>Thank you for your attention!</h5>
+            <p>
+                Krzysiek. Robert. Dawid. Jarek.
+            </p>
+        </section>
+
+    </div>
+    <div class="scanlines"></div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+
+<!-- '?' sign ANIMATION -->
+<script>
+    function rndBetween(min, max) {
+        return Math.floor(
+            Math.random() * (max - min + 1) + min
+        );
+    }
+
+    var particlesRan = false; // add listener only one
+    const askSection = $('[data-state="askSection"]'); // get specific section
+
+    if (!particlesRan) {
+        Reveal.addEventListener('askSection', function () {
+            particlesRan = true;
+
+            setInterval(function () {
+                // remove one sign '?' if the number is bigger than max signs
+                // first add animation zoom-out
+                const maxSigns = 10;
+                if (askSection.children().length > maxSigns) {
+                    for (let child of askSection.children()) {
+                        if ($(child).hasClass('zoom-in') && (child).nodeName === 'P') {
+                            $(child).removeClass('zoom-in');
+                            $(child).addClass('zoom-out');
+                            break;
+                        }
+                    }
+                }
+
+                // next remove signs with scale 0
+                for (let child of askSection.children()) {
+                    let scale = $(child).css('transform').split('(');
+                    if (scale[0] !== 'none') {
+                        scale = parseFloat(scale[1].split(',')[0]);
+                        if (scale === 0) {
+                            child.remove();
+                        }
+                    }
+                }
+
+                // create mark, get random position
+                let mark = $('<p>', {class: 'zoom-in'});
+                mark.text('?')
+                let x = 50;
+                let y = 50;
+                //be sure that is not e center position
+                while (((x > 45 && x < 55) && (y > 47 && y < 53))) {
+                    x = rndBetween(0, 100);
+                    y = rndBetween(0, 100);
+                }
+                mark.attr('style', `top: ${y}%; left: ${x}%; position: absolute`);
+                x = 50;
+                y = 50;
+                askSection.append(mark);
+            }, 500);
+        });
+    }
+</script>
+</body>
+</html>

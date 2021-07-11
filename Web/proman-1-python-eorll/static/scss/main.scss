@@ -1,0 +1,67 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$body-bg: #212826;
+$body-color: #ffffff;
+$modal-content-bg: #505053;
+
+
+$theme-colors: (
+        "primary": #6a7274,
+        "secondary": #505053,
+        "success": #95e208,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark,
+        "brown": #655b41
+);
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $gray-800;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.dragging {
+  transform: scale(0.7);
+  transition: all 0.01s ease;
+  opacity: 50%;
+}
+
+.margin-for-menu {
+  margin-right: 80px;
+}
+
+.bg-image {
+  //background-color: ;
+  background-image: url("../../static/icons/bg_2.png");
+  background-size:cover;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";

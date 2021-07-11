@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% set question_toast_width_100 = True %}
+
+{% block page_title %} Edit answer {% endblock %}
+
+{% block menu %} {% include 'main_menu.html' %} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {% include 'question_toast.html' %}
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="toast fade show my-3 bd-highlight position-relative" role="dialog"
+         aria-live="assertive" aria-atomic="true" style="width: 100%">
+                <h4 class="toast-header text-dark">{{ self.page_title() }}</h4>
+                <div class="card-body">
+
+                    <form method="post"
+                          action="{{ url_for('edit_answer', answer_id=answer.id, question_id=question.id) }}"
+                          enctype=multipart/form-data>
+
+
+                        <label class="form-label" for="message">Message</label>
+                        <br>
+                        <textarea name="message" id="message" class="form-control"
+                                  placeholder="Some content" required>{{ answer['message'] }}</textarea>
+                        <br>
+                        <hr class="m-0 mb-3">
+
+                        <h5 class="form-label">Image</h5>
+                        <label class="form-label" for="same_image">Same image</label>
+                        <input class="form-check d-inline" type="radio" id="same_image" name="image_option" value="same"
+                               checked>
+                        <br>
+                        <label class="form-label" for="change_image">Change image</label>
+                        <input class="form-check d-inline" type="radio" id="change_image" name="image_option"
+                               value="change">
+                        <br>
+                        <label class="form-label" for="remove_image">Remove image</label>
+                        <input class="form-check d-inline" type="radio" id="remove_image" name="image_option"
+                               value="remove">
+                        <br>
+                        <input class="form-control" type="file" name="image" id="image"
+                               accept="image/png, image/jpg, image/jpeg">
+                        <br>
+                        <hr class="m-0">
+
+                        <input type="submit" class="btn btn-outline-success mt-4" value="Edit question">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

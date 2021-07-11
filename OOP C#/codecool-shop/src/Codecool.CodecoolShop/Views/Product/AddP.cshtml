@@ -1,0 +1,64 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "add";
+}
+
+<h1>add</h1>
+@*<script src="https://ajax.microsoft.com/ajax/jquery/jquery-1.10.2.js" type="text/javascript"></script>*@
+<script src="../wwwroot/lib/jquery/dist/jquery.js" type="text/javascript"></script>
+
+
+
+
+
+<form id=" components-form" align="center" class="form-check-input">
+
+    
+
+       
+            <label >Product:</label>
+        
+            <input id="Name" type="text">
+        
+            <label>Price:</label>
+            <input id="DefaultPrice" type="number">
+       
+            <label>Currency:</label>
+            <input id="Currency" type="text">
+       
+            <label>Desc:</label>
+            <input id="Description"  type="text">
+        
+        
+
+    
+    <input id="Button" class="btn-danger" type="button" value="Wyślij" />
+    <a href="AddProduct" class="btn-danger"> Json</a>
+</form>
+
+<script defer>
+    $("#Button").on("click", function () {
+        let name = $("#Name").val();
+        let DefaultPrice = $("#DefaultPrice").val();
+        let Currency = $("#Currency").val();
+        let Description = $("#Description").val();
+
+        let Product = { "Name": name, "DefaultPrice": DefaultPrice, "Currency": Currency, "Description": Description };
+        let ProductJson = JSON.stringify(Product)
+
+
+        console.log(ProductJson);
+
+        $.ajax({
+            type: 'POST',
+            url: "AddProduct",
+            data: ProductJson,
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType : 'json'
+        }).done(function () {
+            console.log("succes")
+        })
+    })
+</script>
+

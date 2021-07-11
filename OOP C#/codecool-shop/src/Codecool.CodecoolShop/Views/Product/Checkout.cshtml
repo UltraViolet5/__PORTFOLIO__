@@ -1,0 +1,50 @@
+﻿@model Codecool.CodecoolShop.Models.Checkout 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<form asp-controller="product" asp-action="payment" method="post">
+
+<table>
+    <tr>
+        <th align="center">Checkout form:</th>
+    </tr>
+    <tr>
+        <td>Name:</td>
+        @*<td><input name="Name" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.Name)</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        @*<td><input name="Email" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.Email)</td>
+    </tr>
+    <tr>
+        <td>PhoneNumber:</td>
+        @*<td><input name="PhoneNumber" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.PhoneNumber)</td>
+    </tr>
+    <tr>
+        <td>BillingAdress:</td>
+        @*<td><input name="BillingAdress" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.BillingAdress)</td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        @*<td><input name="Country" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.Country)</td>
+    </tr>
+    <tr>
+        <td>Adress:</td>
+        @*<td><input name="Adress" type="text" />*@
+        <td>@Html.TextBoxFor(p => p.Adress)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="Go to Payment" /></td>
+    </tr>
+</table>
+</form>

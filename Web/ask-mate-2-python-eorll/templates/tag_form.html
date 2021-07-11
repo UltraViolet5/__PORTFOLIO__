@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% set question_toast_width_100 = True %}
+
+{% block page_title %}Edit tags{% endblock %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {% include 'question_toast.html' %}
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="toast fade show my-3 bd-highlight position-relative" role="dialog"
+         aria-live="assertive" aria-atomic="true" style="width: 100%">
+                <form method="post" action="{{ url_for('add_tag',question_id=question.id) }}"
+                      enctype=multipart/form-data>
+                    <h3 class="toast-header text-dark"> Choose tags:</h3>
+                    <div class="card-body">
+                        {% for tag in all_tags %}
+                            {% if tag not in question_tags %}
+                                <div class="col d-inline-block me-5">
+                                    <input class="form-check-inline" type="checkbox" id="{{ tag.name }}"
+                                           name="{{ tag.id }}">
+                                    <label class="form-label" for="{{ tag.name }}">{{ tag.name }}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <br><br>
+                        <label class="form-label" for="new_tag">Or create new: </label>
+                        <input class="form-control" type="text" id="new_tag" name="new_tag"><br>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-outline-success" value="Add new tags">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

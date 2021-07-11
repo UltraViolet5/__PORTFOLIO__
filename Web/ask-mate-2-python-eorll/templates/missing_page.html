@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}
+    404
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="padding-bottom: 2.5rem; height: 90vh">
+        <div class="col-12 text-center bottom-50 mt-auto mb-auto">
+            <img src="/static/style/constant_images/exclamation-triangle.svg" alt="warning" class="d-inline"
+            style="height: 3rem">
+            <h1 class="d-inline">404</h1>
+            <h2>Page is missing</h2>
+            <h4>Are you sure you typed in the right thing?</h4>
+            {% include 'go_back_home.html' %}
+        </div>
+    </div>
+{% endblock %}

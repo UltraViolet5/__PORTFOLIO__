@@ -1,0 +1,7 @@
+controller/__pycache__/
+model/__pycache__/
+model/crm/__pycache__/
+model/hr/__pycache__/
+model/sales/__pycache__/
+view/__pycache__/
+my_test.py

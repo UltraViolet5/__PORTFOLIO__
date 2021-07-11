@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="toast fade show my-3 bd-highlight position-relative px-3" role="dialog"
+         aria-live="assertive" aria-atomic="true" style="width: 100%">
+        <h5 class="toast-header bd-highlight w-100 text-dark">Profile</h5>
+        <div class="toast-body w-100 mb-5">
+            <div class="row">
+                <div class="col-12 col-lg-4 p-4">
+                    <img src="/static/style/constant_images/file-person.svg" alt="User data"
+                         style="height: 20px; transform: translate(0, -5px)">
+                    <h5 class="card-title d-inline">
+                        User data:
+                    </h5>
+                    <p class="card-text mt-3">
+                        <strong>ID:</strong> {{ user.id }}<br>
+                        <strong>Nick:</strong> {{ user.nick }}
+                        {% if session['access'] == 'admin' or user.id == session['user_id'] %}
+                            <a href="#">Edit</a> {# TODO editing email #}
+                        {% endif %}<br>
+                        <strong>Email:</strong> {{ user.email }}
+                        {% if user.id == session['user_id'] %}
+                            <a href="#">Edit</a> {# TODO editing email #}
+                        {% endif %}<br>
+                        <strong>Password:</strong> ********
+                        {% if user.id == session['user_id'] %}
+                            <a href="#">Edit</a> {# TODO editing password #}
+                        {% endif %}<br>
+                        <strong>Birth date:</strong> {{ user.birth_date }}<br>
+                        <strong>Join date:</strong> {{ user.join_date }}<br>
+                        <strong>Access level:</strong> {{ user.access_level }}
+                        {% if session['access'] == 'admin' %}
+                            <a href="#">Edit</a> {# TODO editing password #}
+                        {% endif %}<br>
+                    </p>
+                </div>
+                <div class="col-12 col-lg-4 p-4">
+                    <img src="/static/style/constant_images/file-earmark-bar-graph.svg" alt="Statistics"
+                         style="height: 20px; transform: translate(0, -5px)">
+                    <h5 class="card-title d-inline">Statistics:</h5>
+                    <p class="card-text mt-3">
+                        <strong>Reputation:</strong> {{ user.reputation }}<br>
+                        <strong>Questions:</strong> {{ get_record_count(user.id, 'question') }}<br>
+                        <strong>Answers:</strong> {{ get_record_count(user.id, 'answer') }}<br>
+                        <strong>Comments:</strong> {{ get_record_count(user.id, 'comment') }}<br>
+                    </p>
+                </div>
+                {% if session['access'] == 'admin' %}
+                    <div class="col-12 col-lg-4 p-4">
+                        <img src="/static/style/constant_images/tools.svg" alt="User data"
+                             style="height: 20px; transform: translate(0, -5px)">
+                        <h5 class="card-title d-inline">
+                            Manage:
+                        </h5>
+                        <p class="card-text mt-3">
+                            <a href="#" class="btn btn-warning btn-sm my-2">7 days block</a>
+                            <a href="#" class="btn btn-warning btn-sm my-2">Month block</a>
+                            <a href="#" class="btn btn-warning btn-sm my-2">Permanent block</a>
+                            <a href="#" class="btn btn-danger btn-sm my-2">Delete user</a>
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Search
+{% endblock %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <h4 class="mt-4 mx-3">Searched {{ questions|length }} results for request "{{ search_phrase }}":</h4>
+    {#    QUESTION ------------------------------------------------------------#}
+    <div class="toast-container row justify-content-around">
+
+        {% for question in questions %}
+            <div class="toast fade show my-3 bd-highlight position-relative" role="dialog"
+                 aria-live="assertive" aria-atomic="true">
+                {#                    HEADER ----------------------------------------------------------#}
+                <div class="toast-header bd-highlight w-100 h-auto">
+                    <svg class="bd-placeholder-img me-2" width="20" height="20"
+                         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                         focusable="false" style="border-radius: 10px">
+                        <rect width="100%" height="100%" fill="#000"></rect>
+                    </svg>
+                    {% set author_id = question.owner_id %}
+                    {% if session['logged'] == True and (session['access'] == 'moderator' or session['access'] == 'admin') %}
+                        <strong class="me-auto"><a href="{{ url_for('user', user_id = author_id) }}"
+                                                   class="text-decoration-none text-dark">
+                            {{ get_user(author_id, 'users').nick }}</a></strong>
+                    {% else %}
+                        <strong class="me-auto"> {{ get_user(author_id, 'users').nick }}</strong>
+                    {% endif %}
+                    <small class="text-muted mx-2">{{ question.submission_time }}</small>
+                </div>
+
+                {# ADDITIONAL OPTIONS ----------------------------------------------------------------  #}
+                {% if session['logged'] == True
+                    and (session['user_id'] == question.owner_id
+                    or session['access'] == 'moderator'
+                    or session['access'] == 'admin') %}
+                    <div class="toast-header bd-highlight w-100 bg-transparent">
+                        <a href="{{ url_for('edit_question_form', question_id=question.id) }}"
+                           class="nav-link py-0 text-dark">Edit</a>
+                        <a href="{{ url_for('delete_question', question_id=question.id) }}"
+                           class="nav-link py-0 text-dark">Delete</a>
+                        <a href="{{ url_for('tag_form', question_id=question.id) }}" class="nav-link py-0 text-dark">
+                            Tags</a>
+                        {% if not question.accepted and
+                    (session['access'] == 'moderator' or session['access'] == 'admin') %}
+                            <a class="nav-link py-0 text-dark"
+                               href="{{ url_for('accept_question', question_id=question.id) }}"
+                               style="color: white">Accept</a>
+                        {% elif question.accepted and
+                    (session['access'] == 'moderator' or session['access'] == 'admin') %}
+                            <a class="nav-link py-0 text-dark"
+                               href="{{ url_for('unaccept_question', question_id=question.id) }}"
+                               style="color: white">Unaccept</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {#                        BODY ----------------------------------------------------------#}
+                <div class="toast-body w-100 mb-5">
+                    <a href="{{ url_for('display_question', question_id=question.id) }}"
+                       class="link text-decoration-none">
+                        <h4 class="text-dark">{{ Markup(mark_searched_word(search_phrase, question.title)) }}</h4>
+                        <p class="text-dark">{{ Markup(mark_searched_word(search_phrase, question.message)) }}</p>
+                    </a>
+                    {% set tags = get_tags(question.id) %}
+                    {% include 'tags_prefab.html' %}
+                </div>
+
+
+                {#                        FOOTER -----------------------------------------------------------#}
+                <div class="w-100 position-absolute bottom-0 pe-4">
+                    <hr style="margin: 0; color: rgba(0,0,0,0.3)">
+                    <p class="text-center position-relative">
+                        {{ question.view_number }}
+                        <img src="/static/style/constant_images/eye.svg" alt="Viewed">
+                        | {{ question.vote_number }}
+                        {% if is_question_liked_by_user(question.id, get_user(question.owner_id, 'users').id) %}
+                            <a href="{{ url_for('dislike_question',
+                question_id=question.id,
+                user_id=get_user(question.owner_id, 'users').id) }}">
+                                <img src="/static/style/constant_images/heart-fill.svg" alt="Likes">
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('like_question',
+                question_id=question.id,
+                user_id=get_user(question.owner_id, 'users').id) }}">
+                                <img src="/static/style/constant_images/heart.svg" alt="Likes">
+                            </a>
+                        {% endif %}
+                        | {{ get_count_of_answers(question.id) }}
+                        <img src="/static/style/constant_images/chat-left.svg" alt="Answers">
+                        {% if question.accepted %}
+                            | <img src="/static/style/constant_images/check-circle.svg" alt="Accepted">
+                        {% endif %}
+                        {% if question.image != None %}
+                            | <img src="/static/style/constant_images/card-image.svg" alt="Attached image">
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {#  END QUESTION -----------------------------------------------------------#}
+
+    {#    ANSWER ---------------------------------------------------------------#}
+    {#{% set header_added = False %}#}
+    {#{% for answer in answers %}#}
+    {#    {% if header_added == False and answer.question_id == question.id %}#}
+    {#        <h3 id="answer">Answers:</h3>#}
+    {#        {% set header_added = True %}#}
+    {#    {% endif %}#}
+    {#{% endfor %}#}
+    {##}
+    {#{% for answer in answers %}#}
+    {##}
+    {#    {% if answer.question_id == question.id %}#}
+    {#        <div class="answer">#}
+    {#            {% if answer.image != None %}#}
+    {#                <a href="{{ url_for('static',filename = 'images/' + answer.image ) }}">#}
+    {#                    <img class="image" src="{{ url_for('static',filename = 'images/' + answer.image) }} "#}
+    {#                         alt="">#}
+    {#                </a>#}
+    {#            {% endif %}#}
+    {#            <p>{{ Markup(mark_searched_word(search_phrase, answer.message)) }}</p>#}
+    {#            <p>#}
+    {#                {{ answer.submission_time }} :: Liked: {{ answer.vote_number }}#}
+    {#            </p>#}
+    {#        </div>#}
+    {#    {% endif %}#}
+    {#{% endfor %}#}
+
+    {# END ANSWER ------------------------------------------------------------------#}
+
+{% endblock %}

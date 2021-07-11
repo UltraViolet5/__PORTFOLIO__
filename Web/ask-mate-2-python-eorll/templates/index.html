@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{#Add link to question toast if linked is true#}
+{% set linked = True %}
+{% set question_toast_width_100 = False %}
+
+{% block menu %}{% include 'main_menu.html' %}{% endblock %}
+
+{% block content %}
+    <div class="row pt-4">
+        {#    RIGHT COLUMN -----------------------------------------------------#}
+        {#        HEADER -------------------------------------------------------#}
+        <div class="col-12 col-lg-8">
+            <div class="row px-5">
+                <div class="col-6">
+                    <h4 class="float-start">Last questions:</h4>
+                </div>
+                <div class="col-6">
+                    <a href="{{ url_for('add_question_form') }}" class="btn btn-outline-success float-end" role="button">
+                        Add new question</a>
+                </div>
+            </div>
+            {#            LAST QUESTIONS --------------------------------------------------#}
+            <div class="row">
+                {% set questions = get_n_questions(4) %}
+                {% include 'questions_prefab.html' %}
+            </div>
+        </div>
+
+        {#    LEFT COLUMN -----------------------------------------------------#}
+        <div class="col-12 col-lg-4">
+            {#            TOP RATED QUESTION ------------------------------#}
+            <h4>Top rated:</h4>
+            <div class="row">
+                {% set question = get_top_rated_question() %}
+                {% include 'question_toast.html' %}
+            </div>
+            {#            TOP VIEWED QUESTION ---------------------------#}
+            <div class="row">
+                <h4>Top viewed:</h4>
+                {% set question = get_top_viewed_question() %}
+                {% include 'question_toast.html' %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
